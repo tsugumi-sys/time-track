@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T02:07:46.152Z",
+  "generated_at": "2026-01-01T02:08:18.949Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,25 +16,29 @@
     }
   },
   "totals": {
-    "week": 0.5,
-    "month": 0.5,
-    "year": 0.5
+    "week": 1.5,
+    "month": 1.5,
+    "year": 1.5
   },
   "by_primary": {
     "week": {
+      "personal_project": 1,
       "youtube": 0.5
     },
     "month": {
+      "personal_project": 1,
       "youtube": 0.5
     },
     "year": {
+      "personal_project": 1,
       "youtube": 0.5
     }
   },
   "daily_series": [
     {
       "date": "2026-01-01",
-      "total": 0.5,
+      "total": 1.5,
+      "personal_project": 1,
       "youtube": 0.5
     }
   ]
