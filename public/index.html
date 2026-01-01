@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Time Tracker</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg: #f6f1ea;
+      --bg-accent: #f2e6d8;
+      --ink: #1c1a17;
+      --muted: #6a625a;
+      --card: #fffaf3;
+      --stroke: #e0d4c4;
+      --accent: #f39c12;
+      --accent-dark: #c26c00;
+      --accent-soft: rgba(243, 156, 18, 0.12);
+      --shadow: 0 22px 45px -35px rgba(24, 18, 12, 0.5);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(243, 156, 18, 0.15), transparent 45%),
+        radial-gradient(circle at 20% 85%, rgba(109, 93, 78, 0.2), transparent 50%),
+        linear-gradient(135deg, var(--bg), var(--bg-accent));
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 48px 0 24px;
+    }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: rise 0.6s ease both;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(243, 156, 18, 0.2), transparent 70%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .card .value {
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+
+    .card .unit {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 24px 0 12px;
+    }
+
+    .segmented {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #efe2d1;
+      border: 1px solid var(--stroke);
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .segmented button {
+      border: none;
+      background: transparent;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .segmented button.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 18px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .section {
+      margin: 28px 0 36px;
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .chart {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 240px;
+      display: block;
+    }
+
+    .tag-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .tag-table th,
+    .tag-table td {
+      padding: 10px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .tag-table th {
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+      border-radius: 999px;
+    }
+
+    .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .empty {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 32px 0 16px;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart svg {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="title">Time Tracker</h1>
+      <p class="subtitle">Git commit-driven tracking with normalized tags.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid cards" id="summary-cards">
+      <div class="card">
+        <h3>Week</h3>
+        <div class="value" data-total="week">0<span class="unit">h</span></div>
+      </div>
+      <div class="card">
+        <h3>Month</h3>
+        <div class="value" data-total="month">0<span class="unit">h</span></div>
+      </div>
+      <div class="card">
+        <h3>Year</h3>
+        <div class="value" data-total="year">0<span class="unit">h</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="controls">
+        <div class="segmented" id="period-toggle">
+          <button type="button" data-period="week" class="active">Week</button>
+          <button type="button" data-period="month">Month</button>
+          <button type="button" data-period="year">Year</button>
+        </div>
+        <div class="meta" id="period-range">--</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Daily Trend</h2>
+      <div class="chart" id="trend-chart">
+        <svg viewBox="0 0 1000 240" preserveAspectRatio="none"></svg>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Tag Breakdown</h2>
+      <div class="chart">
+        <table class="tag-table" id="tag-table">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Hours</th>
+              <th>Share</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="tag-empty" hidden>No data yet.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      report: null,
+      period: 'week'
+    };
+
+    const numberFormatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    function setTotals(report) {
+      for (const key of ['week', 'month', 'year']) {
+        const value = report.totals[key] || 0;
+        const el = document.querySelector(`[data-total="${key}"]`);
+        if (el) {
+          el.innerHTML = `${numberFormatter.format(value)}<span class="unit">h</span>`;
+        }
+      }
+    }
+
+    function setPeriod(period) {
+      state.period = period;
+      document.querySelectorAll('#period-toggle button').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.period === period);
+      });
+
+      const { start, end } = state.report.periods[period];
+      document.getElementById('period-range').textContent = `${start} → ${end}`;
+
+      renderTags();
+      renderTrend();
+    }
+
+    function renderTags() {
+      const tbody = document.querySelector('#tag-table tbody');
+      tbody.innerHTML = '';
+      const empty = document.getElementById('tag-empty');
+
+      const totals = state.report.by_primary[state.period] || {};
+      const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+      if (entries.length === 0) {
+        empty.hidden = false;
+        return;
+      }
+      empty.hidden = true;
+      const maxValue = Math.max(...entries.map(([, value]) => value));
+
+      for (const [tag, hours] of entries) {
+        const row = document.createElement('tr');
+        const share = maxValue === 0 ? 0 : (hours / maxValue) * 100;
+        row.innerHTML = `
+          <td>${tag}</td>
+          <td>${numberFormatter.format(hours)}</td>
+          <td>
+            <div class="bar"><span style="width:${share.toFixed(1)}%"></span></div>
+          </td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+
+    function renderTrend() {
+      const svg = document.querySelector('#trend-chart svg');
+      svg.innerHTML = '';
+
+      const series = state.report.daily_series || [];
+      if (series.length === 0) {
+        svg.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#6a625a">No data yet</text>';
+        return;
+      }
+
+      const values = series.map((item) => item.total);
+      const maxValue = Math.max(...values, 1);
+      const points = series.map((item, index) => {
+        const x = (index / (series.length - 1 || 1)) * 1000;
+        const y = 220 - (item.total / maxValue) * 180;
+        return `${x},${y}`;
+      });
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${points.join(' L ')}`);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#f39c12');
+      path.setAttribute('stroke-width', '3');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+
+      const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      area.setAttribute('d', `M 0,220 L ${points.join(' L ')} L 1000,220 Z`);
+      area.setAttribute('fill', 'rgba(243, 156, 18, 0.12)');
+
+      svg.appendChild(area);
+      svg.appendChild(path);
+    }
+
+    async function loadReport() {
+      try {
+        const response = await fetch('assets/report.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('failed');
+        const report = await response.json();
+        state.report = report;
+        setTotals(report);
+        setPeriod(state.period);
+      } catch (error) {
+        document.getElementById('trend-chart').innerHTML = '<div class="empty">Report data not found yet.</div>';
+        document.getElementById('tag-empty').hidden = false;
+      }
+    }
+
+    document.getElementById('period-toggle').addEventListener('click', (event) => {
+      if (event.target.tagName !== 'BUTTON') return;
+      setPeriod(event.target.dataset.period);
+    });
+
+    loadReport();
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "time-track",
+  "private": true,
+  "version": "0.1.0",
+  "type": "commonjs",
+  "scripts": {
+    "parse": "node scripts/parse-commits.js",
+    "build": "node scripts/build-report.js"
+  },
+  "dependencies": {
+    "yaml": "^2.4.1"
+  }
+}

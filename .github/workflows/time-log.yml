@@ -1,0 +1,66 @@
+name: Time Log
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Tokyo
+      LLM_ENABLED: ${{ secrets.LLM_ENABLED || 'true' }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-2.5-flash' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set cache week
+        run: echo "CACHE_WEEK=$(date +%G-%V)" >> "$GITHUB_ENV"
+
+      - name: Cache LLM normalization
+        uses: actions/cache@v4
+        with:
+          path: .cache/normalize.json
+          key: normalize-${{ runner.os }}-${{ env.CACHE_WEEK }}-${{ hashFiles('tags.yaml') }}
+          restore-keys: |
+            normalize-${{ runner.os }}-${{ env.CACHE_WEEK }}-
+            normalize-${{ runner.os }}-
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Parse commits
+        run: npm run parse
+
+      - name: Build report
+        run: npm run build
+
+      - name: Commit updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data README.md public/assets/report.json tags.suggestions.yaml || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update time logs [skip ci]"
+          git push
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public

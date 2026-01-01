@@ -1,0 +1,65 @@
+version: 1
+timezone: Asia/Tokyo
+
+tags:
+  work:
+    display:
+      en: Work
+      ja: 本業
+    aliases:
+      - honngyou
+      - m-job
+      - mainjob
+      - 本業
+      - 仕事
+  side_project:
+    display:
+      en: Side Project
+      ja: 副業
+    aliases:
+      - s-job
+      - sidejob
+      - 副業
+      - 個人開発
+  personal_project:
+    display:
+      en: Personal Project
+      ja: 個人開発
+    aliases:
+      - p-job
+      - personaljob
+      - 個人開発
+  girlfriend:
+    display:
+      en: Girlfriend
+      ja: 彼女
+    aliases:
+      - gf
+      - 彼女
+  friends:
+    display:
+      en: Friends
+      ja: 友達
+    aliases:
+      - friend
+      - 友達
+  youtube:
+    display:
+      en: YouTube
+      ja: YouTube
+    aliases:
+      - yt
+      - YouTube
+  study:
+    display:
+      en: Study
+      ja: 勉強
+    aliases:
+      - learning
+      - 勉強
+      - study
+  uncategorized:
+    display:
+      en: Uncategorized
+      ja: 未分類
+    aliases: []
