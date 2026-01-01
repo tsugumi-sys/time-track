@@ -15,12 +15,13 @@ const DATA_DIR = path.join(process.cwd(), 'data');
 const ERRORS_PATH = path.join(DATA_DIR, '_errors.json');
 
 function parseDuration(token) {
-  const match = /^(\d+(?:\.\d+)?)(h|m)$/i.exec(token);
+  const match = /^(\d+(?:\.\d+)?)(h|hr|hour|hours|m|min|mins|minute|minutes)$/i.exec(token);
   if (!match) return null;
   const value = Number(match[1]);
   const unit = match[2].toLowerCase();
   if (!Number.isFinite(value)) return null;
-  return unit === 'h' ? value : value / 60;
+  const isHours = unit === 'h' || unit === 'hr' || unit === 'hour' || unit === 'hours';
+  return isHours ? value : value / 60;
 }
 
 function resolveDateToken(token, commitDate, timeZone) {
@@ -56,6 +57,11 @@ function loadJsonIfExists(filePath, fallback) {
 
 function writeJson(filePath, data) {
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+}
+
+function recordError(errors, details) {
+  errors.push(details);
+  console.log(`Parse error: ${details.reason} (${details.commit}) ${details.line}`);
 }
 
 function parseCommitLog() {
@@ -130,7 +136,7 @@ async function main() {
       const dateString = resolveDateToken(parsed.dateToken, commitDate, timeZone);
       const hours = parseDuration(parsed.durationToken);
       if (!dateString || hours === null) {
-        errors.push({
+        recordError(errors, {
           id,
           commit: commit.sha,
           line,
@@ -161,7 +167,7 @@ async function main() {
           }
         } catch (error) {
           console.warn('LLM normalization failed:', error.message);
-          errors.push({
+          recordError(errors, {
             id,
             commit: commit.sha,
             line,
