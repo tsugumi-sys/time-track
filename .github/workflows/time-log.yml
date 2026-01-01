@@ -1,5 +1,8 @@
 name: Time Log
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: ["main"]
