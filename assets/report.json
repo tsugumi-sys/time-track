@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T13:10:50.896Z",
+  "generated_at": "2026-01-01T13:12:46.307Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -40,6 +40,71 @@
       "total": 3.25,
       "youtube": 2.25,
       "personal_project": 1
+    }
+  ],
+  "entries": [
+    {
+      "date": "2026-01-01",
+      "at": "2026-01-01T21:52:21+09:00",
+      "hours": 0.25,
+      "primary": "youtube",
+      "tags": [
+        "youtube"
+      ],
+      "tag_meta": {
+        "youtube": [
+          "MMA"
+        ]
+      },
+      "note": ""
+    },
+    {
+      "date": "2026-01-01",
+      "at": "2026-01-01T12:39:35+09:00",
+      "hours": 1.5,
+      "primary": "youtube",
+      "tags": [
+        "youtube"
+      ],
+      "tag_meta": {
+        "youtube": [
+          "メタバコ"
+        ]
+      },
+      "note": ""
+    },
+    {
+      "date": "2026-01-01",
+      "at": "2026-01-01T11:08:02+09:00",
+      "hours": 1,
+      "primary": "personal_project",
+      "tags": [
+        "p-job"
+      ],
+      "tag_meta": {
+        "p-job": [
+          "time",
+          "tracker",
+          "implementation"
+        ]
+      },
+      "note": ""
+    },
+    {
+      "date": "2026-01-01",
+      "at": "2026-01-01T11:01:27+09:00",
+      "hours": 0.5,
+      "primary": "youtube",
+      "tags": [
+        "youtube"
+      ],
+      "tag_meta": {
+        "youtube": [
+          "fucking",
+          "shorts"
+        ]
+      },
+      "note": ""
     }
   ]
 }
