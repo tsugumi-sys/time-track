@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-01-01T01:54:45.966Z",
+  "timezone": "Asia/Tokyo",
+  "periods": {
+    "week": {
+      "start": "2025-12-29",
+      "end": "2026-01-04"
+    },
+    "month": {
+      "start": "2026-01-01",
+      "end": "2026-01-31"
+    },
+    "year": {
+      "start": "2026-01-01",
+      "end": "2026-12-31"
+    }
+  },
+  "totals": {
+    "week": 0,
+    "month": 0,
+    "year": 0
+  },
+  "by_primary": {
+    "week": {},
+    "month": {},
+    "year": {}
+  },
+  "daily_series": []
+}
