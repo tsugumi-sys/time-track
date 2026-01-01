@@ -195,6 +195,68 @@
       color: var(--muted);
     }
 
+    .entry-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .entry-card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 8px;
+    }
+
+    .entry-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .entry-date {
+      font-weight: 600;
+    }
+
+    .entry-hours {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent-dark);
+    }
+
+    .entry-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(243, 156, 18, 0.2);
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .chip .label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .entry-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
     @keyframes rise {
       from {
         opacity: 0;
@@ -266,6 +328,12 @@
         <div class="empty" id="tag-empty" hidden>No data yet.</div>
       </div>
     </section>
+
+    <section class="section">
+      <h2>Entries</h2>
+      <div class="entry-list" id="entry-list"></div>
+      <div class="empty" id="entry-empty" hidden>No entries for this period.</div>
+    </section>
   </main>
 
   <script>
@@ -290,6 +358,7 @@
 
       renderTags();
       renderTrend();
+      renderEntries();
     }
 
     function renderTags() {
@@ -387,6 +456,59 @@
       });
     }
 
+    function isDateInRange(date, start, end) {
+      if (!date || !start || !end) return false;
+      return date >= start && date <= end;
+    }
+
+    function renderEntries() {
+      const list = document.getElementById('entry-list');
+      const empty = document.getElementById('entry-empty');
+      list.innerHTML = '';
+
+      const entries = state.report.entries || [];
+      const range = state.report.periods[state.period];
+      const filtered = entries.filter((entry) =>
+        isDateInRange(entry.date, range.start, range.end)
+      );
+
+      if (filtered.length === 0) {
+        empty.hidden = false;
+        return;
+      }
+      empty.hidden = true;
+
+      for (const entry of filtered) {
+        const card = document.createElement('div');
+        card.className = 'entry-card';
+
+        const tags = Array.isArray(entry.tags) ? entry.tags : [];
+        const meta = entry.tag_meta || {};
+        const metaChips = Object.keys(meta)
+          .filter((key) => Array.isArray(meta[key]) && meta[key].length > 0)
+          .map((key) => ({
+            tag: key,
+            value: meta[key].join(' ')
+          }));
+
+        const tagsMarkup = tags.map((tag) => `<span class="chip">#${tag}</span>`).join('');
+        const metaMarkup = metaChips
+          .map((item) => `<span class="chip"><span class="label">#${item.tag}</span>${item.value}</span>`)
+          .join('');
+
+        card.innerHTML = `
+          <div class="entry-header">
+            <div class="entry-date">${entry.date}</div>
+            <div class="entry-hours">${numberFormatter.format(entry.hours)}h</div>
+          </div>
+          <div class="entry-tags">${tagsMarkup}${metaMarkup}</div>
+          ${entry.note ? `<div class="entry-note">${entry.note}</div>` : ''}
+        `;
+
+        list.appendChild(card);
+      }
+    }
+
     async function loadReport() {
       try {
         const response = await fetch('assets/report.json', { cache: 'no-store' });
@@ -397,6 +519,7 @@
       } catch (error) {
         document.getElementById('trend-chart').innerHTML = '<div class="empty">Report data not found yet.</div>';
         document.getElementById('tag-empty').hidden = false;
+        document.getElementById('entry-empty').hidden = false;
       }
     }
 

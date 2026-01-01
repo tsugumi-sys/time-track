@@ -88,12 +88,34 @@ function parseTimeLine(line) {
   const dateToken = dateTokenRaw.toLowerCase();
   const rest = tokens.slice(2);
   const rawTags = [];
+  const tagMeta = {};
   const noteParts = [];
+  let currentTag = null;
   for (const token of rest) {
     if (token.startsWith('#')) {
-      rawTags.push(token.slice(1));
+      const tagToken = token.slice(1);
+      const [tagNameRaw, ...metaParts] = tagToken.split(':');
+      const tagName = tagNameRaw.trim();
+      if (!tagName) {
+        currentTag = null;
+        continue;
+      }
+      rawTags.push(tagName);
+      currentTag = tagName;
+      if (metaParts.length > 0) {
+        const metaValue = metaParts.join(':').trim();
+        if (metaValue) {
+          if (!tagMeta[currentTag]) tagMeta[currentTag] = [];
+          tagMeta[currentTag].push(metaValue);
+        }
+      }
     } else {
-      noteParts.push(token);
+      if (currentTag) {
+        if (!tagMeta[currentTag]) tagMeta[currentTag] = [];
+        tagMeta[currentTag].push(token);
+      } else {
+        noteParts.push(token);
+      }
     }
   }
 
@@ -101,6 +123,7 @@ function parseTimeLine(line) {
     dateToken,
     durationToken,
     rawTags,
+    tagMeta,
     note: noteParts.join(' ')
   };
 }
@@ -196,6 +219,7 @@ async function main() {
           date_token: parsed.dateToken,
           duration_token: parsed.durationToken,
           tags: parsed.rawTags,
+          tag_meta: parsed.tagMeta,
           note: parsed.note
         },
         normalized: {

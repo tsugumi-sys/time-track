@@ -77,6 +77,24 @@ function sumTotals(totals) {
   return Object.values(totals).reduce((sum, value) => sum + value, 0);
 }
 
+function buildEntryList(dailies) {
+  const entries = [];
+  for (const daily of dailies) {
+    for (const entry of daily.entries || []) {
+      entries.push({
+        date: daily.date,
+        at: entry.at,
+        hours: entry.hours,
+        primary: entry.normalized?.primary ? entry.normalized.primary : "uncategorized",
+        tags: entry.raw?.tags || [],
+        tag_meta: entry.raw?.tag_meta || {},
+        note: entry.raw?.note || "",
+      });
+    }
+  }
+  return entries.sort((a, b) => String(b.at || "").localeCompare(String(a.at || "")));
+}
+
 function writeJson(filePath, data) {
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
@@ -162,6 +180,7 @@ function main() {
   const byWeek = buildTotalsByPeriod(dailies, weekRange);
   const byMonth = buildTotalsByPeriod(dailies, monthRange);
   const byYear = buildTotalsByPeriod(dailies, yearRange);
+  const entries = buildEntryList(dailies);
 
   const report = {
     generated_at: now.toISOString(),
@@ -191,6 +210,7 @@ function main() {
       year: byYear,
     },
     daily_series: dailySeries,
+    entries,
   };
 
   ensureDir(ASSETS_DIR);
