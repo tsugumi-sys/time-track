@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T13:14:46.927Z",
+  "generated_at": "2026-01-01T13:30:57.538Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,33 +16,48 @@
     }
   },
   "totals": {
-    "week": 3.5,
-    "month": 3.5,
-    "year": 3.5
+    "week": 9.5,
+    "month": 9.5,
+    "year": 9.5
   },
   "by_primary": {
     "week": {
-      "youtube": 2.5,
-      "personal_project": 1
+      "personal_project": 7,
+      "youtube": 2.5
     },
     "month": {
-      "youtube": 2.5,
-      "personal_project": 1
+      "personal_project": 7,
+      "youtube": 2.5
     },
     "year": {
-      "youtube": 2.5,
-      "personal_project": 1
+      "personal_project": 7,
+      "youtube": 2.5
     }
   },
   "daily_series": [
     {
       "date": "2026-01-01",
-      "total": 3.5,
-      "youtube": 2.5,
-      "personal_project": 1
+      "total": 9.5,
+      "personal_project": 7,
+      "youtube": 2.5
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-01",
+      "at": "2026-01-01T22:30:47+09:00",
+      "hours": 6,
+      "primary": "personal_project",
+      "tags": [
+        "p-job"
+      ],
+      "tag_meta": {
+        "p-job": [
+          "tenbagger"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-01",
       "at": "2026-01-01T22:14:33+09:00",
