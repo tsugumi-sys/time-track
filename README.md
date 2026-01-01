@@ -20,7 +20,16 @@
 time: today 2h #work #backend implement webhook retries
 time: yesterday 1.5h #study read papers about retrieval
 time: 2026-01-01 45m #youtube edit short clip
+time: today 15m #youtube:MMA analyze fight footage
+time: today 30m #podcast episode planning #writing outline draft
 ```
+
+### Tag metadata
+
+You can attach metadata to tags in two ways:
+
+- `#tag:meta` (single token metadata)
+- `#tag meta that spans multiple words` (all words after the tag until the next `#tag`)
 
 ## Latest summary
 
