@@ -104,6 +104,9 @@ async function main() {
   const timeZone = tagIndex.timezone || TZ;
   const repo = getRepoName();
   const llmEnabled = String(process.env.LLM_ENABLED || '').toLowerCase() === 'true';
+  let addedCount = 0;
+  let skippedCount = 0;
+  let errorCount = 0;
 
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -133,6 +136,7 @@ async function main() {
           line,
           reason: 'invalid date or duration'
         });
+        errorCount += 1;
         continue;
       }
 
@@ -174,6 +178,7 @@ async function main() {
       });
 
       if (daily.entries.some((entry) => entry.id === id)) {
+        skippedCount += 1;
         continue;
       }
 
@@ -200,10 +205,15 @@ async function main() {
       });
 
       writeJson(dailyPath, daily);
+      addedCount += 1;
+      console.log(
+        `Added ${id} ${dateString} ${hours}h primary=${primary} tags=${parsed.rawTags.join(',')}`
+      );
     }
   }
 
   writeJson(ERRORS_PATH, errors);
+  console.log(`Parse complete: added=${addedCount} skipped=${skippedCount} errors=${errorCount}`);
 }
 
 main();
