@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T13:14:24.228Z",
+  "generated_at": "2026-01-01T13:14:46.927Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,33 +16,48 @@
     }
   },
   "totals": {
-    "week": 3.25,
-    "month": 3.25,
-    "year": 3.25
+    "week": 3.5,
+    "month": 3.5,
+    "year": 3.5
   },
   "by_primary": {
     "week": {
-      "youtube": 2.25,
+      "youtube": 2.5,
       "personal_project": 1
     },
     "month": {
-      "youtube": 2.25,
+      "youtube": 2.5,
       "personal_project": 1
     },
     "year": {
-      "youtube": 2.25,
+      "youtube": 2.5,
       "personal_project": 1
     }
   },
   "daily_series": [
     {
       "date": "2026-01-01",
-      "total": 3.25,
-      "youtube": 2.25,
+      "total": 3.5,
+      "youtube": 2.5,
       "personal_project": 1
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-01",
+      "at": "2026-01-01T22:14:33+09:00",
+      "hours": 0.25,
+      "primary": "youtube",
+      "tags": [
+        "youtube"
+      ],
+      "tag_meta": {
+        "youtube": [
+          "MMA"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-01",
       "at": "2026-01-01T21:52:21+09:00",
