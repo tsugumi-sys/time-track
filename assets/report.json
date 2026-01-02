@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-02T01:56:07.413Z",
+  "generated_at": "2026-01-02T08:09:08.736Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,24 +16,27 @@
     }
   },
   "totals": {
-    "week": 10.5,
-    "month": 10.5,
-    "year": 10.5
+    "week": 15.5,
+    "month": 15.5,
+    "year": 15.5
   },
   "by_primary": {
     "week": {
       "personal_project": 7,
       "youtube": 2.5,
+      "study": 5,
       "netflix": 1
     },
     "month": {
       "personal_project": 7,
       "youtube": 2.5,
+      "study": 5,
       "netflix": 1
     },
     "year": {
       "personal_project": 7,
       "youtube": 2.5,
+      "study": 5,
       "netflix": 1
     }
   },
@@ -46,11 +49,32 @@
     },
     {
       "date": "2026-01-02",
-      "total": 1,
+      "total": 6,
+      "study": 5,
       "netflix": 1
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-02",
+      "at": "2026-01-02T17:08:54+09:00",
+      "hours": 5,
+      "primary": "study",
+      "tags": [
+        "study"
+      ],
+      "tag_meta": {
+        "study": [
+          "learn",
+          "algorithms",
+          "&",
+          "create",
+          "blog",
+          "posts"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-02",
       "at": "2026-01-02T10:55:54+09:00",
