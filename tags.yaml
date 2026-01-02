@@ -58,6 +58,13 @@ tags:
       - learning
       - 勉強
       - study
+  netflix:
+    display:
+      en: Netflix
+      ja: Netflix
+    aliases:
+      - netflix
+      - nflx
   uncategorized:
     display:
       en: Uncategorized
