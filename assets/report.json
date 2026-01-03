@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-02T08:09:08.736Z",
+  "generated_at": "2026-01-03T03:04:53.618Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,28 +16,28 @@
     }
   },
   "totals": {
-    "week": 15.5,
-    "month": 15.5,
-    "year": 15.5
+    "week": 18.5,
+    "month": 18.5,
+    "year": 18.5
   },
   "by_primary": {
     "week": {
       "personal_project": 7,
       "youtube": 2.5,
       "study": 5,
-      "netflix": 1
+      "netflix": 4
     },
     "month": {
       "personal_project": 7,
       "youtube": 2.5,
       "study": 5,
-      "netflix": 1
+      "netflix": 4
     },
     "year": {
       "personal_project": 7,
       "youtube": 2.5,
       "study": 5,
-      "netflix": 1
+      "netflix": 4
     }
   },
   "daily_series": [
@@ -52,9 +52,31 @@
       "total": 6,
       "study": 5,
       "netflix": 1
+    },
+    {
+      "date": "2026-01-03",
+      "total": 3,
+      "netflix": 3
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-03",
+      "at": "2026-01-03T12:04:41+09:00",
+      "hours": 3,
+      "primary": "netflix",
+      "tags": [
+        "netflix"
+      ],
+      "tag_meta": {
+        "netflix": [
+          "nine-nine",
+          "&",
+          "comics"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-02",
       "at": "2026-01-02T17:08:54+09:00",
