@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-03T09:00:38.383Z",
+  "generated_at": "2026-01-03T10:46:37.465Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,27 +16,27 @@
     }
   },
   "totals": {
-    "week": 19.5,
-    "month": 19.5,
-    "year": 19.5
+    "week": 22.5,
+    "month": 22.5,
+    "year": 22.5
   },
   "by_primary": {
     "week": {
       "personal_project": 7,
       "youtube": 3.5,
-      "study": 5,
+      "study": 8,
       "netflix": 4
     },
     "month": {
       "personal_project": 7,
       "youtube": 3.5,
-      "study": 5,
+      "study": 8,
       "netflix": 4
     },
     "year": {
       "personal_project": 7,
       "youtube": 3.5,
-      "study": 5,
+      "study": 8,
       "netflix": 4
     }
   },
@@ -55,12 +55,30 @@
     },
     {
       "date": "2026-01-03",
-      "total": 4,
+      "total": 7,
+      "study": 3,
       "youtube": 1,
       "netflix": 3
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-03",
+      "at": "2026-01-03T19:46:24+09:00",
+      "hours": 3,
+      "primary": "study",
+      "tags": [
+        "study"
+      ],
+      "tag_meta": {
+        "study": [
+          "graphs,",
+          "bidirectional",
+          "searches"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-03",
       "at": "2026-01-03T18:00:22+09:00",
