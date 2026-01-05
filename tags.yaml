@@ -65,6 +65,14 @@ tags:
     aliases:
       - netflix
       - nflx
+  amazon_prime:
+    display:
+      en: Amazon Prime
+      ja: アマプラ
+    aliases:
+      - prime
+      - amazonprime
+      - アマプラ
   uncategorized:
     display:
       en: Uncategorized
