@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-08T11:16:48.747Z",
+  "generated_at": "2026-01-08T11:17:10.934Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,27 +16,27 @@
     }
   },
   "totals": {
-    "week": 5,
-    "month": 30.5,
-    "year": 30.5
+    "week": 7,
+    "month": 32.5,
+    "year": 32.5
   },
   "by_primary": {
     "week": {
-      "study": 3,
+      "study": 5,
       "amazon_prime": 1.5,
       "youtube": 0.5
     },
     "month": {
       "personal_project": 7,
       "youtube": 4,
-      "study": 14,
+      "study": 16,
       "netflix": 4,
       "amazon_prime": 1.5
     },
     "year": {
       "personal_project": 7,
       "youtube": 4,
-      "study": 14,
+      "study": 16,
       "netflix": 4,
       "amazon_prime": 1.5
     }
@@ -84,11 +84,31 @@
     },
     {
       "date": "2026-01-08",
-      "total": 0.5,
+      "total": 2.5,
+      "study": 2,
       "youtube": 0.5
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-08",
+      "at": "2026-01-08T20:16:57+09:00",
+      "hours": 2,
+      "primary": "study",
+      "tags": [
+        "study"
+      ],
+      "tag_meta": {
+        "study": [
+          "leetcode,",
+          "word",
+          "break.",
+          "Too",
+          "difficult!!"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-08",
       "at": "2026-01-08T20:16:35+09:00",
