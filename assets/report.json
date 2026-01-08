@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-08T06:38:39.018Z",
+  "generated_at": "2026-01-08T11:16:48.747Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,25 +16,26 @@
     }
   },
   "totals": {
-    "week": 4.5,
-    "month": 30,
-    "year": 30
+    "week": 5,
+    "month": 30.5,
+    "year": 30.5
   },
   "by_primary": {
     "week": {
       "study": 3,
-      "amazon_prime": 1.5
+      "amazon_prime": 1.5,
+      "youtube": 0.5
     },
     "month": {
       "personal_project": 7,
-      "youtube": 3.5,
+      "youtube": 4,
       "study": 14,
       "netflix": 4,
       "amazon_prime": 1.5
     },
     "year": {
       "personal_project": 7,
-      "youtube": 3.5,
+      "youtube": 4,
       "study": 14,
       "netflix": 4,
       "amazon_prime": 1.5
@@ -80,9 +81,32 @@
       "total": 2.5,
       "study": 1,
       "amazon_prime": 1.5
+    },
+    {
+      "date": "2026-01-08",
+      "total": 0.5,
+      "youtube": 0.5
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-08",
+      "at": "2026-01-08T20:16:35+09:00",
+      "hours": 0.5,
+      "primary": "youtube",
+      "tags": [
+        "youtube"
+      ],
+      "tag_meta": {
+        "youtube": [
+          "boxing",
+          "fy25",
+          "best",
+          "KOs"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-07",
       "at": "2026-01-08T15:38:26+09:00",
