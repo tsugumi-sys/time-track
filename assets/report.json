@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-08T11:17:10.934Z",
+  "generated_at": "2026-01-11T02:59:16.943Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,27 +16,27 @@
     }
   },
   "totals": {
-    "week": 7,
-    "month": 32.5,
-    "year": 32.5
+    "week": 10,
+    "month": 35.5,
+    "year": 35.5
   },
   "by_primary": {
     "week": {
-      "study": 5,
+      "study": 8,
       "amazon_prime": 1.5,
       "youtube": 0.5
     },
     "month": {
       "personal_project": 7,
       "youtube": 4,
-      "study": 16,
+      "study": 19,
       "netflix": 4,
       "amazon_prime": 1.5
     },
     "year": {
       "personal_project": 7,
       "youtube": 4,
-      "study": 16,
+      "study": 19,
       "netflix": 4,
       "amazon_prime": 1.5
     }
@@ -87,9 +87,29 @@
       "total": 2.5,
       "study": 2,
       "youtube": 0.5
+    },
+    {
+      "date": "2026-01-10",
+      "total": 3,
+      "study": 3
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-10",
+      "at": "2026-01-11T11:59:03+09:00",
+      "hours": 3,
+      "primary": "study",
+      "tags": [
+        "study"
+      ],
+      "tag_meta": {
+        "study": [
+          "leetcode"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-08",
       "at": "2026-01-08T20:16:57+09:00",
