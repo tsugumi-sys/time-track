@@ -21,7 +21,10 @@ const README_PATH = path.join(process.cwd(), "README.md");
 function loadDailyFiles() {
   if (!fs.existsSync(DATA_DIR)) return [];
   const files = fs.readdirSync(DATA_DIR)
-    .filter((file) => file.endsWith(".json") && file !== "_errors.json")
+    .filter(
+      (file) =>
+        file.endsWith(".json") && file !== "_errors.json" && file !== "_state.json"
+    )
     .sort();
   return files.map((file) => {
     const fullPath = path.join(DATA_DIR, file);
@@ -31,6 +34,7 @@ function loadDailyFiles() {
 }
 
 function sumEntries(entries) {
+  if (!Array.isArray(entries)) return 0;
   return entries.reduce((total, entry) => total + entry.hours, 0);
 }
 
@@ -45,7 +49,7 @@ function buildDailySeries(dailies) {
   for (const daily of dailies) {
     const total = sumEntries(daily.entries);
     const row = { date: daily.date, total };
-    for (const entry of daily.entries) {
+    for (const entry of daily.entries || []) {
       const primary = entry.normalized?.primary
         ? entry.normalized.primary
         : "uncategorized";
