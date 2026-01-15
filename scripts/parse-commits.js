@@ -13,6 +13,8 @@ const { normalizeTagsLLM } = require('./normalize-tags');
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const ERRORS_PATH = path.join(DATA_DIR, '_errors.json');
+const STATE_PATH = path.join(DATA_DIR, '_state.json');
+const MAX_RECENT_COMMITS = Number(process.env.MAX_RECENT_COMMITS || '20');
 
 function parseDuration(token) {
   const match = /^(\d+(?:\.\d+)?)(h|hr|hour|hours|m|min|mins|minute|minutes)$/i.exec(token);
@@ -64,9 +66,10 @@ function recordError(errors, details) {
   console.log(`Parse error: ${details.reason} (${details.commit}) ${details.line}`);
 }
 
-function parseCommitLog() {
+function parseCommitLog(rangeArg) {
   const format = '%H%x1f%aI%x1f%B%x1e';
-  const output = execSync(`git log --pretty=format:${format}`, { encoding: 'utf8' });
+  const range = rangeArg ? ` ${rangeArg}` : '';
+  const output = execSync(`git log --pretty=format:${format}${range}`, { encoding: 'utf8' });
   return output
     .split('\x1e')
     .map((chunk) => chunk.trim())
@@ -75,6 +78,22 @@ function parseCommitLog() {
       const [sha, dateStr, body] = chunk.split('\x1f');
       return { sha, dateStr, body: body || '' };
     });
+}
+
+function safeParseCommitLog(rangeArg) {
+  try {
+    return parseCommitLog(rangeArg);
+  } catch (error) {
+    return null;
+  }
+}
+
+function getHeadSha() {
+  try {
+    return execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
+  } catch (error) {
+    return null;
+  }
 }
 
 function parseTimeLine(line) {
@@ -142,7 +161,37 @@ async function main() {
   }
 
   const errors = loadJsonIfExists(ERRORS_PATH, []);
-  const commits = parseCommitLog();
+  const state = loadJsonIfExists(STATE_PATH, {
+    last_processed: null,
+    recent_commits: []
+  });
+  const commitsBySha = new Map();
+
+  const addCommits = (list) => {
+    if (!list) return;
+    for (const commit of list) {
+      if (!commitsBySha.has(commit.sha)) {
+        commitsBySha.set(commit.sha, commit);
+      }
+    }
+  };
+
+  if (state.last_processed) {
+    const sinceLast = safeParseCommitLog(`${state.last_processed}..HEAD`);
+    if (sinceLast) {
+      addCommits(sinceLast);
+    } else {
+      addCommits(parseCommitLog());
+    }
+  } else {
+    addCommits(parseCommitLog());
+  }
+
+  if (Number.isFinite(MAX_RECENT_COMMITS) && MAX_RECENT_COMMITS > 0) {
+    addCommits(parseCommitLog(`-n ${MAX_RECENT_COMMITS}`));
+  }
+
+  const commits = Array.from(commitsBySha.values());
 
   for (const commit of commits) {
     const commitDate = new Date(commit.dateStr);
@@ -241,6 +290,17 @@ async function main() {
       );
     }
   }
+
+  const headSha = getHeadSha();
+  const recentForState =
+    Number.isFinite(MAX_RECENT_COMMITS) && MAX_RECENT_COMMITS > 0
+      ? parseCommitLog(`-n ${MAX_RECENT_COMMITS}`).map((commit) => commit.sha)
+      : [];
+
+  writeJson(STATE_PATH, {
+    last_processed: headSha || state.last_processed || null,
+    recent_commits: recentForState
+  });
 
   writeJson(ERRORS_PATH, errors);
   console.log(`Parse complete: added=${addedCount} skipped=${skippedCount} errors=${errorCount}`);
