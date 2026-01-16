@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-15T12:02:42.226Z",
+  "generated_at": "2026-01-16T07:21:58.889Z",
   "timezone": "Asia/Tokyo",
   "periods": {
     "week": {
@@ -16,25 +16,25 @@
     }
   },
   "totals": {
-    "week": 5,
-    "month": 43.5,
-    "year": 43.5
+    "week": 7,
+    "month": 45.5,
+    "year": 45.5
   },
   "by_primary": {
     "week": {
       "study": 4,
-      "youtube": 1
+      "youtube": 3
     },
     "month": {
       "personal_project": 7,
-      "youtube": 5,
+      "youtube": 7,
       "study": 26,
       "netflix": 4,
       "amazon_prime": 1.5
     },
     "year": {
       "personal_project": 7,
-      "youtube": 5,
+      "youtube": 7,
       "study": 26,
       "netflix": 4,
       "amazon_prime": 1.5
@@ -148,9 +148,30 @@
       "total": 2,
       "study": 1,
       "youtube": 1
+    },
+    {
+      "date": "2026-01-16",
+      "total": 2,
+      "youtube": 2
     }
   ],
   "entries": [
+    {
+      "date": "2026-01-16",
+      "at": "2026-01-16T16:21:45+09:00",
+      "hours": 2,
+      "primary": "youtube",
+      "tags": [
+        "youtube"
+      ],
+      "tag_meta": {
+        "youtube": [
+          "bad",
+          "behavior!!"
+        ]
+      },
+      "note": ""
+    },
     {
       "date": "2026-01-11",
       "at": "2026-01-15T21:01:35+09:00",
